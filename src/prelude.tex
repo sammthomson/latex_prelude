@@ -1,0 +1,135 @@
+%%Common packages and definitions for writing ML/NLP papers
+\documentclass[11pt,a4paper]{article}
+\usepackage{etex}  % fixes ``No room for a new \dimen...'' error from too many packages.
+\usepackage{xparse}  % makes writing commands easier
+\usepackage{standalone}
+\usepackage{times}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{stmaryrd} % more math symbols
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{adjustbox}
+\usepackage[toc,page]{appendix}
+\usepackage{xspace}
+\newcommand\bmmax{0} % magic to avoid 'too many math alphabets' error
+\usepackage{bm}
+\usepackage[shortcuts]{extdash}  % for non-breaking hyphens. Stack Overflow says it's important for this to be the last package loaded.
+\usepackage[skip=5pt]{caption}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{tabu}
+\usepackage{makecell}
+\usepackage{paralist}
+\usepackage{cases}
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{soul}
+\usepackage{multirow}
+\usepackage{verbatim}
+\usepackage{tabularx}
+\usepackage{tabulary}
+\usepackage{booktabs}
+\usepackage[mathscr]{euscript}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{tikz-dependency}
+\usetikzlibrary{automata,decorations.markings,arrows,positioning,matrix,calc,patterns,angles,quotes,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.10}
+
+
+\algrenewcommand{\algorithmiccomment}[1]{\leavevmode\hfill$\triangleright$ #1}
+
+\definecolor{orange}{rgb}{1,0.5,0}
+\definecolor{mdgreen}{rgb}{0.05,0.6,0.05}
+\definecolor{mdblue}{rgb}{0,0,0.7}
+\definecolor{dkblue}{rgb}{0,0,0.5}
+\definecolor{dkgray}{rgb}{0.3,0.3,0.3}
+\definecolor{slate}{rgb}{0.25,0.25,0.4}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{ltgray}{rgb}{0.7,0.7,0.7}
+\definecolor{purple}{rgb}{0.7,0,1.0}
+\definecolor{lavender}{rgb}{0.65,0.55,1.0}
+
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\softmax}{softmax}
+\DeclareMathOperator*{\p}{Pr}
+\DeclareMathOperator*{\expectation}{\mathbb{E}}
+% Expectation: can use \E{X}  or \E[Y]{X}.(requires xparse)
+\NewDocumentCommand{\E}{o m}{%
+  \ensuremath{\expectation%
+    \IfValueT{#1}{%
+      _{#1}%
+    }%
+    \left[ #2 \right]%
+  }%
+}
+% KL Divergence
+\DeclarePairedDelimiterX{\infdivx}[2]{(}{)}{%
+  #1\;\delimsize|\delimsize|\;#2%
+}
+\newcommand{\kld}[2]{\ensuremath{D_{KL}\infdivx{#1}{#2}}}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}%
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+\DeclareMathOperator*{\bernoulli}{\text{Bern}}
+\DeclareMathOperator*{\binomial}{\text{Bin}}
+\renewcommand{\L}{\mathcal{L}}
+\DeclareMathOperator*{\loss}{\L}
+% raised plus-minus
+\newcommand{\rpm}{\sbox0{$1$}\sbox2{$\scriptstyle\pm$}
+  \raise\dimexpr(\ht0-\ht2)/2\relax\box2 }
+% :=
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt
+      \hbox{\scriptsize.}\hbox{\scriptsize.}}}%
+  =}
+
+
+\newcommand{\ensuretext}[1]{#1}
+\newcommand{\marker}[2]{\ensuremath{^{\textsc{#1}}_{\textsc{#2}}}}
+
+\newcommand{\draftcomment}[3]{\ensuretext{\textcolor{#3}{[#1 #2]}}}
+% \renewcommand{\draftcomment}[3]{}  % uncomment for submission
+\newcommand{\sam}[1]{\draftcomment{\marker{S}{T}}{#1}{orange}}
+
+
+\newcommand{\term}[1]{\textbf{#1}} % term being defined
+\newcommand{\seq}[1]{\mathbf{#1}}
+\newcommand{\R}{\mathbb{R}}  % real numbers
+\newcommand{\N}{\mathbb{N}}  % natural numbers
+\newcommand{\Q}{\mathbb{Q}}  % rational numbers
+\newcommand{\Z}{\mathbb{Z}}  % integers
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+\newcommand{\rulesep}{\unskip\ \vrule\ }
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
